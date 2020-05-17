@@ -6,7 +6,10 @@
     </h1>
     <ul>
     {% for album in albums %}
-        <li>{{ album.album_title }}</li>
+        <li>
+            {{ album.album_title }}
+            <img src="{{ album.album_logo.url }}" height="250px" width="250px">
+        </li>
     {% endfor %}
     </ul>
 {% endblock %}
