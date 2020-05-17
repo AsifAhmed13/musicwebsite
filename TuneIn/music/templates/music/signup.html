@@ -1,0 +1,36 @@
+{% extends "music/layout.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Login</title> 
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'music/css/login.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="login-box">
+        <h1>
+            Register
+        </h1>
+        <div class="textbox">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <input type="text" placeholder="Username" name="" value="">
+        </div>
+        <div class="textbox">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+            <input type="password" placeholder="Password" name="" value="">
+        </div>
+        <div class="textbox">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+            <input type="password" placeholder="Re-Enter Password" name="" value="">           
+        </div>
+        <input class="btn" type="button" name="" value="Sign up"><br>
+        <label>
+                  OR
+        </label>
+        <br>
+        <input class="btn" type="button" name="" value="Sign in">
+    </div>
+{% endblock %}
