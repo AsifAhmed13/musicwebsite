@@ -1,0 +1,12 @@
+{% extends "music/layout.html" %}
+
+{% block body %}
+    <h1>
+        Albums
+    </h1>
+    <ul>
+    {% for album in albums %}
+        <li>{{ album.album_title }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
