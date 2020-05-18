@@ -6,27 +6,53 @@
 {% endblock %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'music/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'music/css/login.css' %}">    
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+    const Signup = document.getElementById('Sign up');
+    Signup.onclick = function(){
+        var v = window.location.href.split('/');
+        v.pop();
+        v.pop();
+        v = v.join('/');
+        v = v+"/signup";
+        window.location.href = v;
+    } 
+});
+    </script>
 {% endblock %}
 
 {% block body %}
+
+{% for message in messages %}
+    <div style="color: red;position: absolute;top: 55%;left: 43%;" class="alert alert-success">
+            <p><b>
+                {{ message }}
+            </b>
+            </p>
+    </div>
+{% endfor %}
+
     <div class="login-box">
         <h1>
             Login
         </h1>
+    <form action="{% url 'login' %}" method="post">    
+        {% csrf_token %}
         <div class="textbox">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <input type="text" placeholder="Username" name="" value="">
+            {{ forms.username }}    
         </div>
         <div class="textbox">
             <i class="fa fa-lock" aria-hidden="true"></i>
-            <input type="password" placeholder="Password" name="" value="">
+            {{ forms.password }}
         </div>
-        <input class="btn" type="button" name="" value="Sign in"><br>
+        <input style="margin-top: 25px;" id="Sign in" class="btn" type="submit" name="Password" value="Sign in"><br>
+    </form>
         <label>
                   OR
         </label>
         <br>
-        <input class="btn" type="button" name="" value="Sign Up">
+        <input id="Sign up" class="btn" type="button" name="" value="Sign Up">
     </div>
 {% endblock %}

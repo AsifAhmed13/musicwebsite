@@ -2,35 +2,62 @@
 {% load static %}
 
 {% block title %}
-    <title>Login</title> 
+    <title>Sign Up</title> 
 {% endblock %}
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'music/css/login.css' %}">
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+    const Signin = document.getElementById('Sign in');
+    Signin.onclick = function(){
+        var s = window.location.href.split('/');
+        s.pop();
+        s.pop();
+        s = s.join('/');
+        s = s+"/login";
+        window.location.href = s;
+    } 
+});
+    </script>
 {% endblock %}
 
 {% block body %}
+
+{% for message in messages %}
+    <div style="color: red;position: absolute;top: 58%;left: 43%;" class="alert alert-success">
+            <p><b>
+                {{ message }}
+            </b>
+            </p>
+    </div>
+{% endfor %}
+
+
     <div class="login-box">
         <h1>
             Register
         </h1>
+    <form action="{% url 'signup' %}" method="post"> 
+        {% csrf_token %}
         <div class="textbox">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <input type="text" placeholder="Username" name="" value="">
+            {{ forms.username }}
         </div>
         <div class="textbox">
             <i class="fa fa-lock" aria-hidden="true"></i>
-            <input type="password" placeholder="Password" name="" value="">
+            {{ forms.password }}
         </div>
         <div class="textbox">
             <i class="fa fa-lock" aria-hidden="true"></i>
-            <input type="password" placeholder="Re-Enter Password" name="" value="">           
+            {{ forms.reenterpassword }}           
         </div>
-        <input class="btn" type="button" name="" value="Sign up"><br>
+        <input style="margin-top: 25px;" id="Sign up" class="btn" type="submit" name="" value="Sign up"><br>
+    </form>    
         <label>
                   OR
         </label>
         <br>
-        <input class="btn" type="button" name="" value="Sign in">
+        <input id="Sign in" class="btn" type="button" name="" value="Sign in">
     </div>
 {% endblock %}
