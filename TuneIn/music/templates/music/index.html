@@ -13,6 +13,9 @@
         <li>
             {{ album.album_title }}
             <img src="{{ album.album_logo.url }}" height="250px" width="250px">
+            {% for songs in album.songs.all %}
+                {{ songs.song_name }}
+            {% endfor %}
         </li>
     {% endfor %}
     </ul>
