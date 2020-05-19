@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'music/css/addalbum.css' %}">    
+   <link rel="stylesheet" href="{% static 'music/css/addalbum.css' %}">
 {% endblock %}
 
 {% block body %}
@@ -24,10 +24,10 @@
     <div class="textbox">
         {{ forms.language }}
     </div>
-    <div>
+    <div style="margin-top: 15px;">
         {{ forms.album_logo }}
     </div>
-    <input style="margin-top: 25px;" id="Submit" class="btn btn-secondary" type="submit" name="Password" value="Submit"><br>
+    <input style="margin-top: 20px;font-size: larger;background-color: darkgray;" id="Submit" class="btn-secondary" type="submit" name="Password" value="Submit"><br>
 </form>
 </div>
 {% endblock %}

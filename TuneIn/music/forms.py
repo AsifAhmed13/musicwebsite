@@ -22,6 +22,8 @@ class UserRegistrationForm(forms.ModelForm):
         ]
 
 class NewAlbumForm(forms.ModelForm):
+    album_title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Album Title'}))
+    language = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Language'}))
 
     class Meta:
         model = Album

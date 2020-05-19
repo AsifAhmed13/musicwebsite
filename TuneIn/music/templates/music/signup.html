@@ -1,12 +1,12 @@
-{% extends "music/layout.html" %}
 {% load static %}
-
-{% block title %}
+<!DOCTYPE html>
+<html>
+    <head>
     <title>Sign Up</title> 
-{% endblock %}
-
-{% block style %}
+    <meta charset="utf-8">
     <link rel="stylesheet" href="{% static 'music/css/login.css' %}">
+    <!-- JS, Popper.js, and jQuery -->
+    <!-- CSS only -->
     <script>
         document.addEventListener('DOMContentLoaded',function(){
     const Signin = document.getElementById('Sign in');
@@ -20,9 +20,8 @@
     } 
 });
     </script>
-{% endblock %}
-
-{% block body %}
+    </head>
+    <body>
 
 {% for message in messages %}
     <div style="color: red;position: absolute;top: 58%;left: 43%;">
@@ -52,7 +51,7 @@
             <i class="fa fa-lock" aria-hidden="true"></i>
             {{ forms.reenterpassword }}           
         </div>
-        <input style="margin-top: 25px;" id="Sign up" class="btn" type="submit" name="" value="Sign up"><br>
+        <input style="margin-top: 25px;margin-bottom: 30px;" id="Sign up" class="btn" type="submit" name="" value="Sign up"><br>
     </form>    
         <label>
                   OR
@@ -60,4 +59,5 @@
         <br>
         <input id="Sign in" class="btn" type="button" name="" value="Sign in">
     </div>
-{% endblock %}
+    </body>
+    </html>
