@@ -1,10 +1,24 @@
 {% extends "music/layout.html" %}
 
 {% block title %}
-    Tune In
+    <title>Tune In</title>
+{% endblock %}
+
+{% block style %}
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+        const add = document.getElementById('addalbum');
+        add.onclick = function(){
+            window.location.href = window.location.href+"add";
+        }
+    })
+</script>
 {% endblock %}
 
 {% block body %}
+    <button id="addalbum" style="float: right;margin-top: 10px;margin-right: 10px;" class="btn btn-primary" type="button">
+        Add Album   
+    </button>
     <h1>
         Albums
     </h1>
@@ -15,8 +29,14 @@
             <img src="{{ album.album_logo.url }}" height="250px" width="250px">
             {% for songs in album.songs.all %}
                 {{ songs.song_name }}
+            {% empty %}
+                <li>
+                    No Songs in this Album
+                </li>
             {% endfor %}
         </li>
+        {% empty %}
+            <li>No Albums</li>
     {% endfor %}
     </ul>
 {% endblock %}

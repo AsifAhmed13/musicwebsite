@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate,get_user_model
+from .models import Album
 
 User = get_user_model()
 
@@ -18,4 +19,14 @@ class UserRegistrationForm(forms.ModelForm):
             'username',
             'password',
             'reenterpassword',
+        ]
+
+class NewAlbumForm(forms.ModelForm):
+
+    class Meta:
+        model = Album
+        fields = [
+            'album_title',
+            'language',
+            'album_logo'
         ]
