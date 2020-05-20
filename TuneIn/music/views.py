@@ -12,7 +12,10 @@ from django.http import HttpResponse
 def index(request):
     if(request.user.is_authenticated):
         a = User.objects.get(username=request.user.username)
-        return render(request,"music/index.html",{"albums": a.albums.all()})
+        return render(request,"music/index.html",{
+            "albums": a.albums.all(),
+            "user": request.user.username.capitalize()
+        })
     messages.error(request,"Please Login First")
     return redirect(login_view)
 

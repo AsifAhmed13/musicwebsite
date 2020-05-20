@@ -16,24 +16,35 @@
 {% endblock %}
 
 {% block body %}
-    <h1>
-        Albums
+    <h1 style="margin-left: 25px;">
+         {{user}}'s Albums
     </h1>
-    <ul>
+    <br>
+    <div class="container">
+    <ul style="list-style: none;">
+        <div class="row">
     {% for album in albums %}
+    <div class="col-sm-3" style="background: white;margin-bottom: 20px;padding-bottom: 80px;padding-left: 10px;padding-top: 10px;padding-right: 10px;">
         <li>
-            {{ album.album_title }}
             <img src="{{ album.album_logo.url }}" height="250px" width="250px">
-            {% for songs in album.songs.all %}
-                {{ songs.song_name }}
-            {% empty %}
-                <li>
-                    No Songs in this Album
-                </li>
-            {% endfor %}
+            <h3><b>{{ album.album_title }}</b></h3>
+            <h5>{{album.language}}</h5>
+            <button class="btn-info" type="button">View Details</button>
         </li>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
         {% empty %}
-            <li>No Albums</li>
+            <li>You currently don't have any albums. Add albums now.</li>
+            <h1>
+                Info about TuneIn
+            </h1>
+        {% if forloop.counter|divisibleby:3 %}
+            <br>
+        {% endif %}
     {% endfor %}
+        </div>
     </ul>
+    </div>
 {% endblock %}

@@ -24,10 +24,9 @@
     </head>    
     <body>
         <div class="container">
-
-                <div class="col-sm-5">
+                <div class="col-sm-6">
                     <div class="row">
-                        <img src="{% static 'music/images/loginlogo.png' %}" width="145px" height="145px">
+                        <img src="{% static 'music/images/loginlogo.png' %}" width="150px" height="150px">
                     <div class="navbar-header">
                         <a style="font-size: xx-large; font-family: 'Satisfy',cursive; color: black;" class="navbar-brand" href="{% url 'index' %}">
                           <h1 style="font-size: 100px;"> <b>TuneIn</b></h1>
@@ -35,17 +34,20 @@
                         </a>
                     </div>
                 </div>
+                <div class="row">
+                    <h1 style="font-size: 35px;">
+                        <br>
+                        <b>
+                            What is TuneIn?
+                        </b>
+                    </h1>
+                    <p>
+                        <h2><br>TuneIn is an application that let's you upload, store, and play all of your music from the cloud. You can now manage and listen to your music from any device, anywhere in the world.</h2>                        
+                     </p>
+                </div>
                 </div>
                 <div class="row justify-content-end">
-                <div class="col-sm">
-                {% for message in messages %}
-            <div style="color: red;position: absolute;top: 290px;left: 43%;">
-                <p><b>
-                    {{ message }}
-                </b>
-                </p>
-            </div>
-            {% endfor %}    
+                <div class="col-sm">    
             <div class="login-box">
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <h1>
@@ -61,13 +63,20 @@
                     <i class="fa fa-lock" aria-hidden="true"></i>
                     {{ forms.password }}
                 </div>
-                <input style="margin-top: 25px;" id="Sign in" class="btn" type="submit" name="Password" value="Sign in"><br>
-                <label style="position: absolute;top:825px;right: 50%;">
-                    OR
-              </label>
-            </form>
-                <br>
+                <div style="margin-top: 20px;text-align: center;color: red;">
+                    {% for message in messages %}
+                    <div>
+                        <p><b>
+                            <h3>*{{ message }}</h3>
+                        </b>
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <input style="margin-top: 25px;color: black;" id="Sign in" class="btn" type="submit" name="Password" value="Sign in"><br>
+                <h4 style="text-align: center;"><b>OR</b></h4>
                 <input id="Sign up" class="btn" type="button" name="" value="Sign Up">
+                </form>
                 </div>
             </div>
             </div>

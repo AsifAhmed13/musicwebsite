@@ -8,14 +8,20 @@
 {% endblock %}
 
 {% block style %}
-   <link rel="stylesheet" href="{% static 'music/css/addalbum.css' %}">
+<link rel="stylesheet" href="{% static 'music/css/addalbum.css' %}">
 {% endblock %}
 
 {% block body %}
-<div class="login-box">
-    <h1>
-        Add Album
-    </h1>
+<br>
+<br>
+<div class="container">
+<div class="row">
+    <div class="col-sm-6" style="background: white;">
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="login-box">
+        <h3>
+        Add a New Album
+    </h3>
 <form enctype="multipart/form-data" action="{% url 'add' %}" method="post">    
     {% csrf_token %}
     <div class="textbox">
@@ -27,7 +33,43 @@
     <div style="margin-top: 15px;">
         {{ forms.album_logo }}
     </div>
-    <input style="margin-top: 20px;font-size: larger;background-color: darkgray;" id="Submit" class="btn-secondary" type="submit" name="Password" value="Submit"><br>
+    <input style="margin-top: 20px;font-size: large;" id="Submit" class="btn-success" type="submit" name="Password" value="Submit"><br>
 </form>
+    </div>
+    </div>
+    <div class="col-sm-1"></div>
+<div class="col-sm-5" style="background: white;">
+        <br><br>
+    <h3>
+        <b>
+            What is TuneIn?
+        </b>
+    </h3>
+    <p>
+        <h5>TuneIn is an application that let's you upload, store, and play all of your music from the cloud.</h5>
+    </p>
+    <h3>
+        <b>
+            How do I add music?
+        </b>
+    </h3>
+    <p>
+        <h5>First, create a new album by filling out the form on this page. Once an album is created you will be able to add/upload songs.</h5>
+    </p>
+    <h3>
+        <b>
+            What are some Album logo best practices?
+        </b>
+    </h3>
+    <p>
+        <ul>
+            <li><p>Have a resolution of 512x512</p></li>
+            <li><p>Use a common image formats such as .JPG, .GIF, or .PNG</p></li>
+            <li><p>Remain under the 2MB limit.</p></li>
+            <li><p>Square images look best</p></li>
+        </ul>
+    </p>
+</div>
+</div>
 </div>
 {% endblock %}
