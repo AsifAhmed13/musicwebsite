@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate,get_user_model
-from .models import Album
+from .models import Album,Song
 
 User = get_user_model()
 
@@ -31,4 +31,16 @@ class NewAlbumForm(forms.ModelForm):
             'album_title',
             'language',
             'album_logo'
+        ]
+
+class NewSongForm(forms.ModelForm):
+    song_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Song Name'}))
+    artist_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Artist Name'}))
+
+    class Meta:
+        model = Song
+        fields = [
+            'song_name',
+            'artist_name',
+            'audio_file'
         ]

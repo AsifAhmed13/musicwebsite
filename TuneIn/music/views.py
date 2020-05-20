@@ -1,8 +1,8 @@
-from .models import Album
+from .models import Album,logo_default
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,get_user_model,login,logout
-from .forms import UserLoginForm , UserRegistrationForm,NewAlbumForm
+from .forms import UserLoginForm , UserRegistrationForm,NewAlbumForm,NewSongForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -102,7 +102,11 @@ def add_album(request):
             a = Album()
             a.album_title = album_title
             a.language = form.cleaned_data.get('language')
-            a.album_logo = request.FILES['album_logo']
+            if "album_logo" in request.FILES:
+                a.album_logo = request.FILES["album_logo"]
+            else:
+                d = logo_default()
+                a.album_logo = d["logo"]
             a.user = user
             a.save()      
             return redirect(index)
@@ -126,5 +130,6 @@ def addsong(request , album_title):
     user = User.objects.get(username = username)
     album = user.albums.get(album_title = album_title)
     return render(request, "music/addsong.html",{
-        "album": album
+        "album": album,
+        "forms": NewSongForm
     })

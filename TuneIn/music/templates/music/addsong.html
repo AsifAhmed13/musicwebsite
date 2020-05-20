@@ -1,4 +1,5 @@
 {% extends 'music/layout.html' %}
+{% load static %}
 
 {% block title %}
     <title>
@@ -7,6 +8,7 @@
 {% endblock %}
 
 {% block style %}
+<link rel="stylesheet" href="{% static 'music/css/addalbum.css' %}">
     <script>
         document.addEventListener('DOMContentLoaded',function(){
             const view = document.getElementById('viewall');
@@ -38,7 +40,31 @@
             </div>
             <div style="background: white;padding-left: 12px;padding-top: 10px;padding-bottom: 10px;">
                     <h3><b>Add a New Song</b></h3>
-                </div>
+            <div>
+                <form enctype="multipart/form-data" action="{% url 'addsong' album.album_title %}" method="post">    
+                    {% csrf_token %}
+                    <div class="textbox">
+                        {{ forms.song_name }}    
+                    </div>
+                    <div class="textbox">
+                        {{ forms.artist_name }}
+                    </div>
+                    <div style="margin-top: 15px;">
+                        {{ forms.audio_file}}
+                    </div>
+                    <div style="margin-top: 20px;text-align: center;color: red;">
+                        {% for message in messages %}
+                        <div>
+                            <p>
+                                <h6>*{{ message }}</h6>
+                            </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <input style="margin-top: 20px;font-size: large;" id="Submit" class="btn-success" type="submit" name="Password" value="Submit"><br>
+                </form>                
+            </div>
+            </div>
             </div>
         </div>
     </div>
