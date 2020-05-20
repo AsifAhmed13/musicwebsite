@@ -1,0 +1,48 @@
+{% extends 'music/layout.html' %}
+
+{% block title %}
+    <title>Details</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3" style="background: white;margin-bottom: 20px;padding-bottom: 10px;padding-left: 10px;padding-top: 10px;padding-right: 10px;">
+                <img src="{{ album.album_logo.url }}" height="250px" width="250px">
+                <h3><b>{{ album.album_title }}</b></h3>
+                <h5>{{album.language}}</h5>
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-8">
+                <div class="row" style="margin-bottom: 10px;">
+                <button type="button" style="padding-left: 10px;margin-left: 15px;", class="btn btn-light active">View all</button>
+                <button type="button" class="btn btn-primary" onclick="window.location.href = window.location.href+'addsong';">Add New Song</button>
+                </div>
+                <div style="background: white;padding-left: 10px;padding-top: 10px;">
+                        <h3><b>All Songs</b></h3>
+                    <ul style="list-style: none;">
+                        <li><div class="row">
+                            <div class="col-sm-6"><b>Title</b></div>
+                            <div class="col-sm-2"><b>Audio File</b></div>
+                            <div class="col-sm-2"><b>Favorite</b></div>
+                            <div class="col-sm-2"><b>Actions</b></div>
+                            <hr>
+                        </div></li>
+                    {% for song in songs %}
+                        <li><div class="row">
+                            <div class="col-sm-6"><b>{{song.song_name}}</b></div>
+                            <div class="col-sm-2"><b>Audio File</b></div>
+                            <div class="col-sm-2"><b>Favorite</b></div>
+                            <div class="col-sm-2"><b>Actions</b></div>
+                            <hr>
+                        </div></li><br>
+                    {% empty %}
+                        <h4 style="text-align: left;padding-top: 5px;padding-bottom: 5px;">Currently no songs added in this album, add songs now.</h4>
+                    {% endfor %}
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

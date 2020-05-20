@@ -6,5 +6,7 @@ urlpatterns = [
     path("music/login/",views.login_view,name="login"),
     path("music/signup/",views.signup_view,name="signup"),
     path("music/logout/",views.logout_view,name="logout"),
-    path("add",views.add_album,name="add"),
+    path("add/",views.add_album,name="add"),
+    path("<str:album_title>/",views.details,name="details"),
+    path("<str:album_title>/addsong/",views.addsong,name="addsong"),
 ]

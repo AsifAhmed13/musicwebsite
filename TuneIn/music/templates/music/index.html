@@ -1,7 +1,8 @@
 {% extends "music/layout.html" %}
+{% load static %}
 
 {% block title %}
-    <title>Tune In</title>
+    <title>TuneIn</title>
 {% endblock %}
 
 {% block style %}
@@ -16,33 +17,90 @@
 {% endblock %}
 
 {% block body %}
-    <h1 style="margin-left: 25px;">
-         {{user}}'s Albums
-    </h1>
+    {% ifequal count 0 %}
+    {% else %}
+        <h1 style="margin-left: 25px;text-align: center;">
+            {{user}}'s Albums
+        </h1>
+    {% endifequal %}
     <br>
     <div class="container">
     <ul style="list-style: none;">
         <div class="row">
     {% for album in albums %}
-    <div class="col-sm-3" style="background: white;margin-bottom: 20px;padding-bottom: 80px;padding-left: 10px;padding-top: 10px;padding-right: 10px;">
+    <div class="col-sm-3" style="background: white;margin-bottom: 20px;padding-bottom: 10px;padding-left: 10px;padding-top: 10px;padding-right: 10px;">
         <li>
             <img src="{{ album.album_logo.url }}" height="250px" width="250px">
             <h3><b>{{ album.album_title }}</b></h3>
             <h5>{{album.language}}</h5>
-            <button class="btn-info" type="button">View Details</button>
+            <button class="btn btn-primary" type="button" onclick="window.location.href =window.location.href+'{{ album.album_title }}';">View Details</button>
+            <button class="btn btn-light" type="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;</button>
+            <button class="btn btn-light" type="button"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;</button>
         </li>
         </div>
         <div class="col-sm-1">
-
         </div>
         {% empty %}
-            <li>You currently don't have any albums. Add albums now.</li>
-            <h1>
-                Info about TuneIn
+           <div class="container">
+            <div class="row">
+            <div class="col-sm-2">
+                <img src="{% static 'music/images/loginlogo.png' %}" width="200px" height="200px">
+            </div>
+            <div class="col-sm"> 
+                <div class="navbar-header">
+                    <a style="font-size: xx-large; font-family: 'Satisfy',cursive; color: black;" class="navbar-brand">
+                      <h1 style="font-size: 100px;"> <b>TuneIn</b></h1>
+                      <h2>cloud music player</h2>
+                    </a>
+                </div>
+            </div>
+            </div>
+            </div>
+            <h1 style="font-size: 35px;">
+                <br>
+                <b>
+                    What is TuneIn?
+                </b>
             </h1>
-        {% if forloop.counter|divisibleby:3 %}
-            <br>
-        {% endif %}
+            <p>
+                <h3>TuneIn is an application that let's you upload, store, and play all of your music from the cloud. You can now manage and listen to your music from any device, anywhere in the world.</h3>                        
+            </p>
+            <h1 style="font-size: 35px;">
+                <br>
+                <b>
+                    How does it work?
+                </b>
+            </h1>
+            <p>
+                <h3>To get started, first create a new album. When adding an album cover logo, it's best to have a resolution of at least 512x512 and to use common image formats such as JPG, JPEG, or PNG.</h3>                        
+            </p>
+            <h1 style="font-size: 35px;">
+                <br>
+                <b>
+                    Adding Songs
+                </b>
+            </h1>
+            <p>
+                <h3>After an album is created you will then be able to add/upload songs. Currently supported file types are WAV, MP3, and OGG.</h3>                        
+            </p>
+            <h1 style="font-size: 35px;">
+                <br>
+                <b>
+                    My Songs
+                </b>
+            </h1>
+            <p>
+                <h3>Once songs are added to an album you are then able to play, favorite, and delete them.</h3>                        
+            </p>
+            <h1 style="font-size: 35px;">
+                <br>
+                <b>
+                    Searching
+                </b>
+            </h1>
+            <p>
+                <h3>You can also search for music using the search feature at the top of every page. Any relevant albums will appear at the top of the results page, and the results for individual songs will appear below.</h3>                        
+            </p>
     {% endfor %}
         </div>
     </ul>

@@ -12,9 +12,12 @@ from django.http import HttpResponse
 def index(request):
     if(request.user.is_authenticated):
         a = User.objects.get(username=request.user.username)
+        albums = a.albums.all()
+        count = albums.count()
         return render(request,"music/index.html",{
             "albums": a.albums.all(),
-            "user": request.user.username.capitalize()
+            "user": request.user.username.capitalize(),
+            "count": count
         })
     messages.error(request,"Please Login First")
     return redirect(login_view)
@@ -79,19 +82,49 @@ def logout_view(request):
     logout(request)
     return redirect(login_view) 
 
+def album_exists(album_title , user):
+    for album in user.albums.all():
+        if(album_title==album.album_title):
+            return True
+    return False
+
 def add_album(request):
     if(request.method=="POST"):
         form = NewAlbumForm(request.POST,request.FILES)
-        if(form.is_valid()):       
+        if(form.is_valid()):
+            album_title = form.cleaned_data.get('album_title')
+            user = User.objects.get(username=request.user.username)
+            if (album_exists(album_title ,user)==True):
+                messages.error(request , "Album already exists")
+                return render(request , "music/add_album.html",{
+                    'forms': NewAlbumForm
+                })
             a = Album()
-            a.album_title = form.cleaned_data.get('album_title')
+            a.album_title = album_title
             a.language = form.cleaned_data.get('language')
             a.album_logo = request.FILES['album_logo']
-            a.user = User.objects.get(username=request.user.username)
+            a.user = user
             a.save()      
             return redirect(index)
         else:
             return HttpResponse("Not valid")
     return render(request , "music/add_album.html",{
         'forms': NewAlbumForm
+    })
+
+def details(request,album_title):
+    username = request.user.username
+    user = User.objects.get(username = username)
+    album = user.albums.get(album_title = album_title)
+    return render(request , "music/details.html",{
+        "songs" : album.songs.all(),
+        "album" : album
+    })
+
+def addsong(request , album_title):
+    username = request.user.username
+    user = User.objects.get(username = username)
+    album = user.albums.get(album_title = album_title)
+    return render(request, "music/addsong.html",{
+        "album": album
     })
