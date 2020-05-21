@@ -30,13 +30,13 @@
                             <hr>
                         </div></li>
                     {% for song in songs %}
-                        <li><div class="row">
+                        <li style="padding-bottom: 5px;"><div class="row">
                             <div class="col-sm-6"><b>{{song.song_name}}</b></div>
-                            <div class="col-sm-2"><b>Audio File</b></div>
-                            <div class="col-sm-2"><b>Favorite</b></div>
-                            <div class="col-sm-2"><b>Actions</b></div>
+                        <div class="col-sm-2"><b><button style="margin-bottom: 5px;" class="btn btn-success btn-xs" type="button" onclick="window.location.href = window.location.href+'{{song.song_name}}'+'/play/';"><span class="glyphicon glyphicon-play" aria-hidden="true"></span>&nbsp; Play</button></b></div>
+                            <div class="col-sm-2"><b><button style="background: transparent;background-repeat: no-repeat;border: none;cursor: pointer;overflow: hidden;outline: none;" type="button" class="btn-xs"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;</button></b></div>
+                            <div class="col-sm-2"><b><button style="margin-bottom: 5px;" class="btn btn-danger btn-xs" type="button" onclick="window.location.href = window.location.href+'{{song.song_name}}'+'/deletesong/';"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp; Delete</button></b></div>
                             <hr>
-                        </div></li><br>
+                        </div></li>
                     {% empty %}
                         <h4 style="text-align: left;padding-top: 5px;padding-bottom: 5px;">Currently no songs added in this album, add songs now.</h4>
                     {% endfor %}

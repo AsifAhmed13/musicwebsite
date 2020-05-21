@@ -1,4 +1,4 @@
-from .models import Album,logo_default
+from .models import Album,logo_default,Song
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,get_user_model,login,logout
@@ -125,11 +125,90 @@ def details(request,album_title):
         "album" : album
     })
 
+def song_exists(song_name , album):
+    for song in album.songs.all():
+        if(song.song_name==song_name):
+            return True
+    return False
+
 def addsong(request , album_title):
+    if(request.method=="POST"):
+        form = NewSongForm(request.POST,request.FILES)
+        if(form.is_valid()):
+            user = User.objects.get(username=request.user.username)
+            albums = user.albums.all()
+            album  = albums.get(album_title=album_title)
+            song_name = form.cleaned_data.get('song_name')
+            if(song_exists(song_name,album)==True):
+                messages.error(request,"Song already exists in this album")
+                return render(request,"music/addsong.html",{
+                    "album": album,
+                    "forms": NewSongForm
+                })
+            song = Song()
+            song.album = album
+            song.song_name = song_name
+            song.artist_name = form.cleaned_data.get('artist_name')
+            song.audio_file = request.FILES["audio_file"]
+            song.save()
+            return redirect(details,album_title)
     username = request.user.username
     user = User.objects.get(username = username)
     album = user.albums.get(album_title = album_title)
     return render(request, "music/addsong.html",{
         "album": album,
         "forms": NewSongForm
+    })
+
+def mysongs(request):
+    user = User.objects.get(username = request.user.username)
+    albums = user.albums.all()
+    count = albums.count()
+    flag = 0
+    songcount =1 
+    for album in albums:
+        if(album.songs.all().count()!=0):
+            flag = 1
+            break
+    if(flag==0 and count!=0):
+        songcount = 0
+    return render(request,"music/mysongs.html",{
+        "albums": albums,
+        "user": request.user.username.capitalize(),
+        "count": count,
+        "songcount": songcount
+    })
+
+def deletealbum(request,album_title):
+    user = User.objects.get(username = request.user.username)
+    albums = user.albums.all()
+    albums = albums.filter(album_title =album_title).delete()
+    albums = user.albums.all()
+    return redirect(index)
+
+def deletesong(request ,album_title, song_name):
+    user = User.objects.get(username = request.user.username)
+    albums = user.albums.all()
+    album = albums.get(album_title = album_title)
+    songs = album.songs.all()
+    songs = songs.filter(song_name = song_name).delete()
+    songs  = album.songs.all()
+    return redirect(details,album_title)
+
+def playsong(request,album_title , song_name):
+    user = User.objects.get(username=request.user.username)
+    albums = user.albums.all()
+    album = albums.get(album_title = album_title)
+    song = album.songs.get(song_name = song_name)
+    return render(request,"music/playsong.html",{
+        "song": song
+    })
+
+def playsongs(request , album_title,song_name):
+    user = User.objects.get(username=request.user.username)
+    albums = user.albums.all()
+    album = albums.get(album_title = album_title)
+    song = album.songs.get(song_name = song_name)
+    return render(request,"music/playsongs.html",{
+        "song": song
     })

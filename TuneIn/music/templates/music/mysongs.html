@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Add Album
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Satisfy" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script>
+
+        </script>
+    </head>
+
+    <body style="background-color: whitesmoke;">
+        <nav style="border-radius: 0;" class="navbar navbar-inverse">
+            <div class="container fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                        <span class="icon-bar">
+                        </span>                
+                        <span class="icon-bar">
+                        </span>                
+                        <span class="icon-bar">
+                        </span>                     
+                    </button>
+                    <a style="font-family: 'Satisfy',cursive;" class="navbar-brand" href="{% url 'index' %}">
+                        <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>&nbsp; TuneIn
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="topNavBar">
+                    <ul class="nav navbar-nav">
+                        <li class="">
+                            <a href="{% url 'index' %}">
+                                <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="{% url 'mysongs' %}">
+                                <span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs
+                            </a>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search" method="get" action="#">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="q" value="">
+                        </div>
+                        <button style="font-size: large;background-color: darkgray;margin-left: 5px;" type="submit" class="btn-Secondary">
+                            Search
+                        </button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="{% url 'add' %}">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Album
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'logout' %}">
+                                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% ifequal count 0 %}
+        {% else %}
+            <h1 style="margin-left: 25px;text-align: center;">
+                {{user}}'s Songs
+            </h1>
+        {% endifequal %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10">
+                    <div style="background: white;padding-left: 10px;padding-top: 10px;">
+                    <ul style="list-style: none;">
+                        <li><div class="row">
+                            <div class="col-sm-3"><b>Title</b></div>
+                            <div class="col-sm-2"><b>Artist Name</b></div>
+                            <div class="col-sm-2"><b>Audio File</b></div>
+                            <div class="col-sm-2"><b>Album Title</b></div>
+                            <hr>
+                        </div></li>
+                    {% for album in albums %}
+                        {% for song in album.songs.all %}
+                        <li style="padding-bottom: 5px;"><div class="row">
+                            <div class="col-sm-3"><b>{{song.song_name}}</b></div>
+                            <div class="col-sm-2"><b>{{song.artist_name}}</b></div>
+                            <div class="col-sm-2"><b><button style="margin-bottom: 5px;" class="btn btn-success btn-xs" type="button" onclick="window.location.href = window.location.href+'{{song.album.album_title}}/'+'{{song.song_name}}/';"><span class="glyphicon glyphicon-play" aria-hidden="true"></span>&nbsp; Play</button></b></div>
+                            <div class="col-sm-2"><b>{{song.album.album_title}}</b></div>
+                            <hr>
+                        </div></li>
+                        {% endfor %}
+                        {% empty %}
+                            <h4 style="text-align: left;padding-top: 5px;padding-bottom: 10px;">Currently no songs added. <p>
+                                <h4 style="padding-bottom: 10px;"> After an album is created you will then be able to add/upload songs. Currently supported file types are WAV, MP3 and OGG.</h4>                        
+                            </p></h4>
+                    {% endfor %}
+                    {% ifequal songcount 0 %}
+                            <h4 style="padding-bottom: 10px;">Currently no songs added in any album, add songs now.</h4>
+                    {% else %}
+                    {% endifequal %}
+                    </ul>
+                </div>
+        </div>
+        <div class="col-sm-1"></div>
+        </div>
+        </div>
+        </body>
+        </html>

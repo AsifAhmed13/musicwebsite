@@ -34,7 +34,7 @@
             <h3><b>{{ album.album_title }}</b></h3>
             <h5>{{album.language}}</h5>
             <button class="btn btn-primary" type="button" onclick="window.location.href =window.location.href+'{{ album.album_title }}';">View Details</button>
-            <button class="btn btn-light" type="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;</button>
+            <button class="btn btn-light" type="button" onclick="window.location.href = window.location.href+'{{ album.album_title }}'+'/delete';"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;</button>
             <button class="btn btn-light" type="button"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>&nbsp;</button>
         </li>
         </div>
@@ -72,7 +72,7 @@
                 </b>
             </h1>
             <p>
-                <h3>To get started, first create a new album. When adding an album cover logo, it's best to have a resolution of at least 512x512 and to use common image formats such as JPG, JPEG, or PNG.</h3>                        
+                <h3>To get started, first create a new album. When adding an album cover logo, it's best to have a resolution of at least 512x512 and to use common image formats such as JPG, JPEG, or PNG. But adding album logo is Optional.</h3>                        
             </p>
             <h1 style="font-size: 35px;">
                 <br>
@@ -81,7 +81,7 @@
                 </b>
             </h1>
             <p>
-                <h3>After an album is created you will then be able to add/upload songs. Currently supported file types are WAV, MP3, and OGG.</h3>                        
+                <h3>After an album is created you will then be able to add/upload songs. Currently supported file types are WAV, MP3 and OGG.</h3>                        
             </p>
             <h1 style="font-size: 35px;">
                 <br>

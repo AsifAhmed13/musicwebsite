@@ -1,17 +1,72 @@
-{% extends "music/layout.html" %}
 {% load static %}
 
-{% block title %}
-    <title>
-        Add Album
-    </title>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Add Album
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Satisfy" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{% static 'music/css/addalbum.css' %}">
+    </head>
 
-{% block style %}
-<link rel="stylesheet" href="{% static 'music/css/addalbum.css' %}">
-{% endblock %}
-
-{% block body %}
+    <body style="background-color: whitesmoke;">
+        <nav style="border-radius: 0;" class="navbar navbar-inverse">
+            <div class="container fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                        <span class="icon-bar">
+                        </span>                
+                        <span class="icon-bar">
+                        </span>                
+                        <span class="icon-bar">
+                        </span>                     
+                    </button>
+                    <a style="font-family: 'Satisfy',cursive;" class="navbar-brand" href="{% url 'index' %}">
+                        <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>&nbsp; TuneIn
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="topNavBar">
+                    <ul class="nav navbar-nav">
+                        <li class="">
+                            <a href="{% url 'index' %}">
+                                <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'mysongs' %}">
+                                <span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs
+                            </a>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search" method="get" action="#">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="q" value="">
+                        </div>
+                        <button style="font-size: large;background-color: darkgray;margin-left: 5px;" type="submit" class="btn-Secondary">
+                            Search
+                        </button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active">
+                            <a href="{% url 'add' %}">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Album
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'logout' %}">
+                                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 <br>
 <br>
 <div class="container">
@@ -72,6 +127,7 @@
     </h3>
     <p>
         <ul>
+            <li><p>Uploading a Logo is Optional.</p></li>
             <li><p>Have a resolution of 512x512</p></li>
             <li><p>Use a common image formats such as .JPG, .GIF, or .PNG</p></li>
             <li><p>Remain under the 2MB limit.</p></li>
@@ -81,4 +137,5 @@
 </div>
 </div>
 </div>
-{% endblock %}
+</body>
+</html>

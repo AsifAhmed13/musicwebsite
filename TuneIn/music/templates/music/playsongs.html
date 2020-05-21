@@ -1,0 +1,23 @@
+{% extends 'music/playsong.html' %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+        const back = document.getElementById('back');
+        back.onclick = function(){
+            var v = window.location.href.split('/');
+            v.pop();
+            v.pop();
+            v.pop();
+            v = v.join('/');
+            window.location.href = v;
+        }
+    })
+</script>
+{% endblock %}
+
+{% block back %}
+    <div id='back' class="col-sm-4"><button class="btn btn-light btn-lg" type="button" style="color: white;margin-top: 15px;width: 90px;height: 45px;">
+        back
+    </button></div>
+{% endblock %}

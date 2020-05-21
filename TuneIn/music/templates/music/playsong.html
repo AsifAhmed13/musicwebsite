@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {{song.song_name}}
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Satisfy" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        {% block script %}
+        <script>
+            document.addEventListener('DOMContentLoaded',function(){
+                const back = document.getElementById('back');
+                back.onclick = function(){
+                    var v = window.location.href.split('/');
+                    v.pop();
+                    v.pop();
+                    v.pop();
+                    v = v.join('/');
+                    window.location.href = v;
+                }
+            })
+        </script>
+        {% endblock %}
+    </head>
+    <body style="background: black;">
+        <figure>
+            <div class="container">
+                <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                <audio style="position: fixed;top: 45%;left: 40%;" controls autoplay loop>
+                  <source src="{{ song.audio_file.url }}" type="audio/mp3">
+                    <source src="{{ song.audio_file.url }}" type="audio/wav">
+                    <source src="{{ song.audio_file.url }}" type="audio/ogg">
+                    Audio tag is not supported in this browser
+                </audio>
+            </div>
+            {% block back %}
+            <div id='back' class="col-sm-4"><button class="btn btn-light btn-lg" type="button" style="color: white;margin-top: 15px;width: 90px;height: 45px;">
+                back
+            </button></div>
+            {% endblock %}
+        </div>
+        </div>       
+        </figure>
+    </body>
+</html>

@@ -12,8 +12,6 @@
         {% endblock %}
         {% block style %}
         {% endblock %}
-
-
     </head>
     <body style="background-color: whitesmoke;">
         <nav style="border-radius: 0;" class="navbar navbar-inverse">
@@ -39,7 +37,7 @@
                             </a>
                         </li>
                         <li class="">
-                            <a href="#">
+                            <a href="{% url 'mysongs' %}">
                                 <span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs
                             </a>
                         </li>
