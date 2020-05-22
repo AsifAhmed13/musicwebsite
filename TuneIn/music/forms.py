@@ -44,3 +44,6 @@ class NewSongForm(forms.ModelForm):
             'artist_name',
             'audio_file'
         ]
+
+class SearchForm(forms.Form):
+    q = forms.CharField()

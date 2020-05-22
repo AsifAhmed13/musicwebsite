@@ -2,7 +2,7 @@ from .models import Album,logo_default,Song
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,get_user_model,login,logout
-from .forms import UserLoginForm , UserRegistrationForm,NewAlbumForm,NewSongForm
+from .forms import UserLoginForm , UserRegistrationForm,NewAlbumForm,NewSongForm,SearchForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -212,3 +212,49 @@ def playsongs(request , album_title,song_name):
     return render(request,"music/playsongs.html",{
         "song": song
     })
+
+
+
+def search(request):
+    if request.method=="POST":
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            q = form.cleaned_data.get('q')
+            user = User.objects.get(username=request.user.username)
+            albums = user.albums.all()
+            sendalbums = []
+            songslist = []
+            sendsongs = []
+            for album in albums:
+                songslist.append(album.songs.all())
+                if(q in album.album_title or q.capitalize() in album.album_title):
+                    sendalbums.append(album)
+            for songs in songslist:
+                for song in songs:
+                    if(q in song.song_name or q.capitalize() in song.song_name):
+                        sendsongs.append(song)
+            if(len(sendalbums)==0 and len(sendsongs)==0):
+                messages.error(request,"NO ALBUMS FOUND")
+                return render(request , "music/search.html",{
+                    "count" : 0
+                } )
+            return render(request , "music/search.html",{
+                "songslist": sendsongs,
+                "albumslist": sendalbums,
+                "user": request.user.username.capitalize(),
+                "count": 1
+            })
+        return redirect(index)
+    return redirect(index)
+
+def playsearch(request,album_title,song_name):
+    user = User.objects.get(username=request.user.username)
+    albums = user.albums.all()
+    album = albums.get(album_title = album_title)
+    song = album.songs.get(song_name = song_name)
+    return render(request,"music/playsearch.html",{
+        "song": song
+    })
+
+def searchdetails(request,album_title):
+    return redirect(details,album_title)
